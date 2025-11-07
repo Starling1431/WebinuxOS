@@ -49,7 +49,7 @@ Contributions welcome! Feel free to open issues or pull requests.
 
 ## License
 
-MIT License © 2025 Your Name
+BRACKIX License © 2025 Starling
 
 ---
 
