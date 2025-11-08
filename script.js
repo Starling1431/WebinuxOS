@@ -116,6 +116,9 @@ function restoreWindow(id) {
   });
 })();
 
+window.openSettings = function() { showWindow('settings-window'); };
+window.closeSettings = function() { hideWindow('settings-window'); };
+
 // Controles y apertura/cierre Firefox
 window.openFirefox = function() { showWindow('firefox-window'); };
 window.closeFirefox = function() { hideWindow('firefox-window'); };
@@ -394,3 +397,24 @@ window.addEventListener('touchend', e => {
 });
 
 updateCursorPos();
+
+//Modo oscuro
+// Detección y control de Dark Mode
+
+document.addEventListener('DOMContentLoaded', () => {
+  const darkModeCheckbox = document.getElementById('dark-mode-checkbox');
+  if (darkModeCheckbox) {
+    // Escuchar cambio del checkbox
+    darkModeCheckbox.addEventListener('change', (e) => {
+      // Invertir el estado actual del checkbox
+      darkModeCheckbox.checked = !darkModeCheckbox.checked;
+
+      // Agregar o quitar clase 'dark-mode' en body según el estado
+      if (darkModeCheckbox.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+  }
+});
