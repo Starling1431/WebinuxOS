@@ -116,8 +116,11 @@ function restoreWindow(id) {
   });
 })();
 
-window.openSettings = function() { showWindow('settings-window'); };
 window.closeSettings = function() { hideWindow('settings-window'); };
+
+window.openSettings = function() {
+  showWindow('settings-window');
+};
 
 document.querySelector('.sidebar-icon[title="Settings"]').addEventListener('click', () => {
   showWindow('settings-window');
