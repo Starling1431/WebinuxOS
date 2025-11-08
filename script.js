@@ -119,6 +119,10 @@ function restoreWindow(id) {
 window.openSettings = function() { showWindow('settings-window'); };
 window.closeSettings = function() { hideWindow('settings-window'); };
 
+document.querySelector('.sidebar-icon[title="Settings"]').addEventListener('click', () => {
+  showWindow('settings-window');
+});
+
 // Controles y apertura/cierre Firefox
 window.openFirefox = function() { showWindow('firefox-window'); };
 window.closeFirefox = function() { hideWindow('firefox-window'); };
