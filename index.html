@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta charset="UTF-8"/>
+  <title>WebinuxOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/Tux.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="assets/Tux.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/Tux.png" />
+</head>
+<body>
+  <div id="top-bar">
+    <div class="menu-left">
+      <span>Activities</span>
+      <span class="term-icon" onclick="openTerminal()">
+        <img src="assets/terminal.png" alt="Terminal" />
+        Terminal
+      </span>
+    </div>
+    <div class="topbar-center">
+      <span id="top-bar-clock"></span>
+    </div>
+    <div class="menu-right">
+      <span class="icon" id="wifi-btn">📶</span>
+      <span class="icon" id="sound-btn">🔊</span>
+      <span class="icon" id="battery-btn">🔋</span>
+      <span class="icon" id="power-btn">⏻</span>
+    </div>
+  </div>
+  <div id="desktop">
+    <img id="wallpaper" src="assets/sonic wallpaper.jpeg" alt="wallpaper"/>
+    <div id="sidebar">
+      <div class="sidebar-icon" title="Firefox" onclick="openFirefox()">
+        <img src="assets/firefox.png" alt="Firefox"/>
+      </div>
+      <div class="sidebar-icon" title="Notepad" onclick="openNotepad()">
+         <img src="assets/notepad.png" alt="Notepad"/>
+      </div>
+      <div class="sidebar-icon" title="File Explorer" onclick="openFileExplorer()">
+        <img src="assets/folder.png" alt="Files"/>
+      </div>
+      <div class="sidebar-icon" title="Rhythmbox">
+        <img src="assets/rhythmbox.png" alt="Rhythmbox"/>
+      </div>
+      <div class="sidebar-icon" title="Terminal" onclick="openTerminal()">
+        <img src="assets/terminal.png" alt="Terminal"/>
+      </div>
+      <div class="sidebar-icon" title="Settings" onclick="openSettings()">
+        <img src="assets/settings.png" alt="Settings"/>
+      </div>
+    </div>
+
+    <!-- Improved Firefox window -->
+    <div id="firefox-window" class="window" style="display:none;left:170px;top:160px;">
+      <div class="window-header" id="firefox-header">
+        <span class="window-title">
+          <img src="assets/firefox.png" style="height:20px;vertical-align:middle;"/> Firefox
+        </span>
+        <div class="window-controls">
+          <button onclick="minimizeWindow('firefox-window')" class="win-btn min"></button>
+          <button onclick="fullscreenWindow('firefox-window')" class="win-btn max"></button>
+          <button onclick="closeFirefox()" class="win-btn close"></button>
+        </div>
+      </div>
+      <div class="window-content" id="firefox-content">
+        <div class="browser-bar">
+          <input id="browser-search" placeholder="[translate:Buscar en DuckDuckGo...]" type="text"/>
+          <button onclick="doSearch()">[translate:Buscar]</button>
+        </div>
+        <div id="duckduck-result" style="color:#fff;margin-top:18px;font-size:18px;min-height:160px;"></div>
+      </div>
+    </div>
+
+    <!-- Improved Terminal window -->
+    <div id="terminal-window" class="window" style="display:none;left:220px;top:200px;">
+      <div class="window-header" id="terminal-header">
+        <span class="window-title">
+          <img src="assets/terminal.png" style="height:20px;vertical-align:middle;"/> Terminal
+        </span>
+        <div class="window-controls">
+          <button onclick="minimizeWindow('terminal-window')" class="win-btn min"></button>
+          <button onclick="fullscreenWindow('terminal-window')" class="win-btn max"></button>
+          <button onclick="closeTerminal()" class="win-btn close"></button>
+        </div>
+      </div>
+      <div class="window-content" id="terminal-content">
+        <div id="terminal-output"></div>
+        <div id="terminal-input-line">
+          <span class="prompt">user@ubuntu:~$</span>
+          <input type="text" id="terminal-input" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+        <!-- File Explorer window -->
+    <div id="file-explorer-window" class="window" style="display:none; left:250px; top:220px;">
+      <div class="window-header" id="file-explorer-header">
+        <span class="window-title">
+          <img src="assets/folder.png" style="height:20px;vertical-align:middle;" /> File Explorer
+        </span>
+        <div class="window-controls">
+          <button onclick="minimizeWindow('file-explorer-window')" class="win-btn min"></button>
+          <button onclick="fullscreenWindow('file-explorer-window')" class="win-btn max"></button>
+          <button onclick="closeFileExplorer()" class="win-btn close"></button>
+        </div>
+      </div>
+      <div class="window-content" style="padding:10px; display: flex; flex-direction: column;">
+        <div id="file-explorer-breadcrumbs" style="margin-bottom:8px; font-weight: bold;"></div>
+        <ul id="file-explorer-list" style="flex:1; overflow-y:auto; list-style:none; padding-left:0;"></ul>
+      </div>
+    </div>
+
+        <!-- Notepad window -->
+    <div id="notepad-window" class="window" style="display:none; left:350px; top:200px; width: 400px; height: 300px;">
+      <div class="window-header" id="notepad-header">
+        <span class="window-title">
+          <img src="assets/notepad.png" style="height:20px;vertical-align:middle;" /> Bloc de Notas
+        </span>
+        <div class="window-controls">
+          <button onclick="minimizeWindow('notepad-window')" class="win-btn min"></button>
+          <button onclick="fullscreenWindow('notepad-window')" class="win-btn max"></button>
+          <button onclick="closeNotepad()" class="win-btn close"></button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 10px; height: calc(100% - 40px); display: flex; flex-direction: column;">
+        <textarea id="notepad-text" style="flex: 1; width: 100%; resize: none; font-family: monospace; font-size: 14px; background:#111; color:#eee; border:none; outline:none; padding:10px; border-radius:4px;"></textarea>
+        <button style="margin-top: 8px; align-self: flex-end;" onclick="saveNotepad()">Guardar</button>
+      </div>
+    </div>
+
+    <div id="settings-window" class="window" style="display:none; left:300px; top:180px;">
+      <div class="window-header" id="settings-header">
+        <span class="window-title">
+          <img src="assets/settings.png" style="height:20px;vertical-align:middle;" /> Settings
+        </span>
+        <div class="window-controls">
+          <button onclick="minimizeWindow('settings-window')" class="win-btn min"></button>
+          <button onclick="fullscreenWindow('settings-window')" class="win-btn max"></button>
+          <button onclick="closeSettings()" class="win-btn close"></button>
+        </div>
+      </div>
+      <div class="window-content" id="settings-content" style="color:#fff;">
+        <h3>User Preferences</h3>
+        <label><input type="checkbox" id="dark-mode-checkbox" /> Dark Mode</label><br/><br/>
+
+        <h3>Notifications</h3>
+        <label><input type="checkbox" id="notify-checkbox" checked /> Enable Notifications</label><br/><br/>
+
+        <h3>About</h3>
+        <p>WebinuxOS version 1.0 - created 2025</p>
+      </div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

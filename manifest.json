@@ -1,0 +1,12 @@
+{
+  "name": "WebinuxOS",
+  "short_name": "WebinuxOS",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#311934",
+  "theme_color": "#311934",
+  "icons": [
+    { "src": "assets/Tux.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/Tux.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
